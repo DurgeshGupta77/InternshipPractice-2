@@ -1,0 +1,18 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Update Form!{% endblock %}
+
+
+
+{% block body %}
+
+    <button> <a href = {{path('try')}}>Display Created Tasks</a> </button>
+
+    <br><br><br>
+
+    {% for message in app.flashes('taskUpdateNotice') %}
+        {{ message }}
+    {% endfor %}
+
+    {{ form(form) }}
+{% endblock %}

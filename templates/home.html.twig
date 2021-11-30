@@ -1,0 +1,7 @@
+
+<h1>This is Home</h1>
+{% if app.user  %}
+<button><a href = {{path("app_logout")}}>Logout</a></button>
+{% else %}
+<button><a href = {{path("login")}}>LogIn</a></button>
+{% endif %}

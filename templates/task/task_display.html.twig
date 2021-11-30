@@ -1,0 +1,92 @@
+<h1>List of task you need to do</h1>
+
+<style>
+
+table{
+    width: 100%;
+      
+}
+
+table, th{
+    border: 2px solid black;
+    border-collapse: collapse;
+}
+
+th{
+    background-color: RGBA(150,212,212,0.6);
+    padding: 20px;
+    height: 30px;
+}
+
+button{
+    border: none;
+    color: white;
+    padding: 8px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    transition-duration: 0.4s;
+    cursor: pointer;
+}
+
+.btn1 {
+    background-color: white; 
+    color: black; 
+    border: 2px solid #4CAF50;
+}
+
+.btn1:hover {
+  background-color: #4CAF50;
+  color: white;
+}
+ 
+.btn2 {
+    background-color: white; 
+    color: black; 
+    border: 2px solid #008CBA;
+}
+
+.btn2:hover {
+  background-color: #008CBA;
+  color: white;
+}
+
+a{
+    text-decoration: none;
+    color: black;
+}
+
+</style>
+
+{% block body %}
+{% for message in app.flashes('taskUpdateNotice') %}
+        {{ message }}
+    {% endfor %}
+    <table>
+        <thead>
+            <tr>
+                <th>S.N.</th>
+                <th>Name of Task</th>
+                <th>Due Date</th>
+                <th>Description</th>
+                <th>Methods</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for data in ListOfTask %}
+            <tr>
+                <th>{{data.id}}</th>
+                <th>{{data.task}}</th>
+                <th>{{data.dueDate|date('d-m-Y')}}</th>
+                <th>{{data.description}}</th>
+                <th>
+                    <button class = "btn1"> <a href = "{{ path('update',{'id':data.id}) }}">   Update  </a> </button> 
+                    <button class = "btn2"> <a href = "{{ path('delete',{'id':data.id}) }}">   Delete  </a> </button>
+                </th>                
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}
