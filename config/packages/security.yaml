@@ -52,3 +52,10 @@ security:
         # or require ROLE_ADMIN or IS_AUTHENTICATED_FULLY for /admin*
         - { path: '^/admin', roles: [IS_AUTHENTICATED_FULLY, ROLE_ADMIN] }
         - { path: ^/api/(post|comment)/\d+$, roles: ROLE_USER }
+        - { path: ^/task, roles: [IS_AUTHENTICATED_FULLY, ROLE_USER] }
+        - { path: ^/update, roles: [IS_AUTHENTICATED_FULLY, ROLE_USER] }
+        - { path: ^/delete, roles: [IS_AUTHENTICATED_FULLY, ROLE_USER] }
+        - { path: ^/try, roles: [IS_AUTHENTICATED_FULLY, ROLE_USER] }
+        - { path: ^/innerjoin, roles: [IS_AUTHENTICATED_FULLY, ROLE_USER] }
+        
+

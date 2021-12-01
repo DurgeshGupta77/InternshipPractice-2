@@ -4,6 +4,7 @@ namespace App\Repository;
 
 use App\Entity\Task;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\ORM\Query\Expr\Join;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
@@ -17,6 +18,45 @@ class TaskRepository extends ServiceEntityRepository
     public function __construct(ManagerRegistry $registry)
     {
         parent::__construct($registry, Task::class);
+    }
+
+    /**
+     * return Task[]
+     */
+    public function findDataByID($value): array{
+        // $entityManager = $this->getEntityManager();
+
+        // $query = $entityManager->createQuery(
+        //     'SELECT * FROM App\Entity\Task t WHERE t.user = :value ORDER BY t.id ASC'
+        // )->setParameter('value',$value);
+
+        // return $query->getResult();
+
+        $qb = $this->createQueryBuilder('t')
+            ->where('t.user = :value')
+            ->setParameter('value', $value)
+            ->orderBy('t.id', 'ASC');
+
+        $query = $qb->getQuery();
+         return $query->execute();
+    }
+
+    /**
+     * return Task[]
+     */
+    public function findDataByInnerJoiningTables($value): array{              
+        
+
+        $qb = $this->createQueryBuilder('t');
+        $qb->select('t')
+            ->innerJoin('App\Entity\User', 'u', Join::WITH, 'u=t.user')
+            ->where('t.user = :value')
+            ->setParameter('value', $value)
+            ->orderBy('t.id', 'ASC');      
+        
+
+        $query = $qb->getQuery();
+        return $query->execute();       
     }
 
     // /**

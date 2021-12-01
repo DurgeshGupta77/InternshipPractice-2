@@ -7,7 +7,7 @@
 {% block body %}
 
     <style>
-    .button1{
+    .button1, .button2, .button3{
         border: 1px solid black;
         color: white;
         padding: 15px 32px;
@@ -24,6 +24,14 @@
         background-color: #4CAF50;
     }
 
+    .button2:hover{
+        background-color: #33EBFF;
+    }
+
+    .button3:hover{
+        background-color: #C70039;
+    }
+
     a{
         text-decoration: none;
         color: black;
@@ -31,6 +39,8 @@
     </style>
 
     <button class = "button1"> <a href = {{path('try')}}>Display Created Tasks</a> </button>
+    <button class = "button2"> <a href = {{path('innerjoin')}}>Display All Info</a> </button>
+    <button class = "button3"> <a href = {{path('home')}}>Home Page</a> </button>
 
     <br><br><br>
 

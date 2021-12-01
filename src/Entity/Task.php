@@ -5,6 +5,7 @@ namespace App\Entity;
 use App\Repository\TaskRepository;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
+use App\Entity\User;
 
 /**
  * @ORM\Entity(repositoryClass=TaskRepository::class)
@@ -36,10 +37,29 @@ class Task
      */
     private $dueDate;
 
+    // /**
+    //  * @ORM\ManyToOne(targetEntity=User::class, inversedBy="tasks")
+    //  */
+    // private $user;
+
+    // /**
+    //  * @ORM\Column(type="integer")
+    //  */
+    // private $userID;
+
     /**
-     * @ORM\Column(type="integer")
+     * @ORM\ManyToOne(targetEntity="App\Entity\User")
      */
-    private $userID;
+    private $user;
+
+    // public function getUser(): ?User{
+    //     return $this->user;
+    // }
+
+    // public function setUser(?User $user): self{
+    //     $this->user = $user;
+    //     return $this;
+    // }
 
     public function getId(): ?int
     {
@@ -58,17 +78,17 @@ class Task
         return $this;
     }
 
-    public function getUserId(): ?string
-    {
-        return $this->userID;
-    }
+    // public function getUserId(): ?string
+    // {
+    //     return $this->userID;
+    // }
 
-    public function setUserId(string $userID): self
-    {
-        $this->userID = $userID;
+    // public function setUserId(string $userID): self
+    // {
+    //     $this->userID = $userID;
 
-        return $this;
-    }
+    //     return $this;
+    // }
 
     public function getDescription(): ?string
     {
@@ -90,6 +110,18 @@ class Task
     public function setDueDate(\DateTimeInterface $dueDate): self
     {
         $this->dueDate = $dueDate;
+
+        return $this;
+    }
+
+    public function getUser(): ?User
+    {
+        return $this->user;
+    }
+
+    public function setUser(?User $user): self
+    {
+        $this->user = $user;
 
         return $this;
     }

@@ -10,6 +10,8 @@ use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Security\Core\Security;
+use App\Repository\TaskRepository;
+use Knp\Component\Pager\PaginatorInterface;
 
 class TaskController extends AbstractController
 {
@@ -28,8 +30,7 @@ class TaskController extends AbstractController
         if($form->isSubmitted() && $form->isValid()){
             $task = $form->getData();
             $user = $this->getUser();        
-            $toFind = $user->getId();
-            $task->setUserId($toFind);
+            $task->setUser($user);
             $entitymanager = $this->getDoctrine()->getManager();
             $entitymanager->persist($task);
             $entitymanager->flush();
@@ -95,13 +96,33 @@ class TaskController extends AbstractController
     /**
      * @Route("/try", name="try")
      */
-    public function trying():Response{
+    public function trying(Request $request, PaginatorInterface $paginator):Response{
         $user = $this->getUser();        
         $toFind = $user->getId();
         $repository = $this->getDoctrine()->getRepository(Task::class);
-        $listOfTask = $repository->findBy(['userID' => $toFind]);
+        $listOfTask = $repository->findDataByID($toFind);
+        $result = $paginator->paginate(
+            $listOfTask,
+            $request->query->getInt('page', 1),
+            $request->query->getInt('limit', 5),
+        );
+
         return $this->render('task/task_display.html.twig', [
+            'ListOfTask' => $result
+        ]);
+    }
+
+    /**
+     * @Route("/innerjoin", name="innerjoin")
+     */
+    public function letsTry(){
+        $user = $this->getUser();        
+        $toFind = $user->getId();
+        $repository = $this->getDoctrine()->getRepository(Task::class);
+        $listOfTask = $repository->findDataByInnerJoiningTables($toFind);//It shows error only in VSCode but works in browser like a charm
+        return $this->render('task/task_display_All_Details.html.twig', [
             'ListOfTask' => $listOfTask
         ]);
+        // dd($listOfTask);
     }
 }
