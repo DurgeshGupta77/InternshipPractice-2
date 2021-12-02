@@ -1,88 +1,35 @@
-<h1>Entire details of Logged In User</h1>
-
-<style>
-
-table{
-    width: 100%;
-      
-}
-
-table, th{
-    border: 2px solid black;
-    border-collapse: collapse;
-}
-
-th{
-    background-color: RGBA(150,212,212,0.6);
-    padding: 20px;
-    height: 30px;
-}
-
-button{
-    border: none;
-    color: white;
-    padding: 8px 32px;
-    text-align: center;
-    text-decoration: none;
-    display: inline-block;
-    font-size: 16px;
-    margin: 4px 2px;
-    transition-duration: 0.4s;
-    cursor: pointer;
-}
-
-.btn1 {
-    background-color: white; 
-    color: black; 
-    border: 2px solid #4CAF50;
-}
-
-.btn1:hover {
-  background-color: #4CAF50;
-  color: white;
-}
- 
-.btn2 {
-    background-color: white; 
-    color: black; 
-    border: 2px solid #008CBA;
-}
-
-.btn2:hover {
-  background-color: #008CBA;
-  color: white;
-}
-
-a{
-    text-decoration: none;
-    color: black;
-}
-
-</style>
+{% extends 'base.html.twig' %}
 
 {% block body %}
-    <table>
-        <thead>
-            <tr>
-                <th>S.N.</th>
-                <th>Name of Task</th>
-                <th>Due Date</th>
-                <th>Description</th>
-                <th>Email ID of User</th>
-                <th>ID of User</th>
-            </tr>
-        </thead>
-        <tbody>
-            {% for data in ListOfTask %}
-            <tr>
-                <th>{{data.id}}</th>
-                <th>{{data.task}}</th>
-                <th>{{data.dueDate|date('d-m-Y')}}</th>
-                <th>{{data.description}}</th>
-                <th>{{data.user.email}}</th>
-                <th>{{data.user.id}}</th>                                
-            </tr>
-            {% endfor %}
-        </tbody>
-    </table>
+    <div class = "container my-5">
+        <h1>Entire details of Logged In User</h1>
+        <div class = "button text-center my-5">
+            <button class = "btn-lg btn-outline-info"> <a href = {{path("home")}} class = "text-decoration-none">Home</a> </button>
+        </div>
+
+        <table class = "table my-5">
+            <thead>
+                <tr>
+                    <th scope = "col">S.N.</th>
+                    <th scope = "col">Name of Task</th>
+                    <th scope = "col">Due Date</th>
+                    <th scope = "col">Description</th>
+                    <th scope = "col">Email ID of User</th>
+                    <th scope = "col">ID of User</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for data in ListOfTask %}
+                <tr>
+                    <th scope = "row">{{data.id}}</th>
+                    <td>{{data.task}}</th>
+                    <td>{{data.dueDate|date('d-m-Y')}}</th>
+                    <td>{{data.description}}</th>
+                    <td>{{data.user.email}}</th>
+                    <td>{{data.user.id}}</th>                                
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
 {% endblock %}

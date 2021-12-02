@@ -15,15 +15,20 @@ class TaskType extends AbstractType{
         $builder
             ->add('task', TextType::class,[
                 'label' => 'Task:',
+                'attr' => ['class' => 'input-group mb-3']
             ])
             ->add('dueDate', DateType::class, [
                 'label' => 'To be Completed Before:',
+                'attr' => ['class' => 'input-group mb-3']
             ])
             ->add('Description', TextType::class, [
                 'required' => false,
                 'label' => 'Description of the Task',
+                'attr' => ['class' => 'input-group mb-3']
                 ])
-            ->add('save', SubmitType::class)
+            ->add('save', SubmitType::class, [
+                'attr' => ['class' => 'btn-lg btn-primary']
+            ])
         ;
     }
 

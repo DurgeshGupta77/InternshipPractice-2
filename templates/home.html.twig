@@ -1,51 +1,58 @@
+{% extends 'base.html.twig' %}
+{% block title %}Home Page{% endblock %}
 
-<h1>Hello, {{app.user.username}}!. Nice to have you back!</h1>
-<style>
-    h1{
-        margin-top: 50px;
-        margin-bottom: 80px;
-    }
+{% block body %}
+    <style>
+        h1{
+            margin-top: 50px;
+            margin-bottom: 80px;
+        }
 
-    .button1, .button2, .button3, .logout{
-        border: 1px solid black;
-        color: white;
-        padding: 15px 32px;
-        text-align: center;
-        text-decoration: none;
-        display: inline-block;
-        font-size: 16px;
-        margin: 4px 2px;
-        cursor: pointer;
-        transition: all 0.5s;
-        margin-bottom: 30px;
-    }
+        .button1, .button2, .button3, .logout{
+            border: 1px solid black;
+            color: white;
+            padding: 15px 32px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 16px;
+            margin: 4px 2px;
+            cursor: pointer;
+            transition: all 0.5s;
+            margin-bottom: 30px;
+        }
 
-     a{
-        text-decoration: none;
-        color: black;
-    }
+        a{
+            text-decoration: none;
+            color: black;
+        }
 
-    .button1:hover{
-        background-color: #4CAF50;
-    }
+        .button1:hover{
+            background-color: #4CAF50;
+        }
 
-    .button2:hover{
-        background-color: #33EBFF;
-    }
+        .button2:hover{
+            background-color: #33EBFF;
+        }
 
-    .logout:hover{
-        background-color: #C70039;
-    }
+        .logout:hover{
+            background-color: #C70039;
+        }
 
-    .button3:hover{
-        background-color: #FF5733;
-    }
-</style>
-{% if app.user  %}
-<button class = "logout"><a href = {{path("app_logout")}}>Logout</a></button><br>
-<button class = "button1"> <a href = {{path('task')}}>Create Task</a> </button><br>
-<button class = "button3"> <a href = {{path('innerjoin')}}>Display All Info</a> </button><br>
-<button class = "button2"> <a href = {{path('try')}}>Display Created Tasks</a> </button><br>
-{% else %}
-<button><a href = {{path("login")}}>LogIn</a></button>
-{% endif %}
+        .button3:hover{
+            background-color: #FF5733;
+        }
+    </style>
+
+    {% if app.user  %}
+        <div class = "container">
+            <h1>Hello, {{app.user.username}}!. Nice to have you back!</h1>
+            <button class = "logout"><a href = {{path("app_logout")}}>Logout</a></button><br>
+            <button class = "button1"> <a href = {{path('task')}}>Create Task</a> </button><br>
+            <button class = "button3"> <a href = {{path('innerjoin')}}>Display All Info</a> </button><br>
+            <button class = "button2"> <a href = {{path('try')}}>Display Created Tasks</a> </button><br>
+        </div>
+    {% else %}
+    <button><a href = {{path("login")}}>LogIn</a></button>
+    {% endif %}
+{% endblock %}

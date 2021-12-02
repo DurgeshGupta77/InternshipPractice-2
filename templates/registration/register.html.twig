@@ -3,15 +3,40 @@
 {% block title %}Register{% endblock %}
 
 {% block body %}
-    <h1>Register</h1>
+        <div class = "text my-3 text-center">
+            <h1>Register</h1>
+        </div>
 
-    {{ form_start(registrationForm) }}
-        {{ form_row(registrationForm.email) }}
-        {{ form_row(registrationForm.plainPassword, {
-            label: 'Password'
-        }) }}
-        {{ form_row(registrationForm.agreeTerms) }}
+        {% if not registrationForm.vars.valid %}
+            <ul>
+                {# Loop through every form item #}
+                {% for child in registrationForm.children %}
+                    {# Display the errors of the form item #}
+                    {%for error in child.vars.errors%}
+                        <div class = "container alert alert-danger">
+                            {{error.message}}
+                        </div>
+                    {%endfor%}
+                {%endfor%}
+            </ul>
+        {%endif%}
 
-        <button type="submit" class="btn">Register</button>
-    {{ form_end(registrationForm) }}
+    <div class = "container my-5">        
+
+        {{ form_start(registrationForm) }}
+         
+            
+            {{ form_row(registrationForm.email) }}
+            {{ form_row(registrationForm.plainPassword, {
+                label: 'Password'
+            }) }}
+            {{ form_row(registrationForm.agreeTerms) }}
+
+            <div class = "text-center my-5">
+                <button type="submit" class="btn btn-primary btn-lg">Register</button>
+                <button type="submit" class="btn btn-outline-info btn-lg"><a href = "{{path('login')}}" class = "text-decoration-none">Sign In</a></button>
+            </div>
+        {{ form_end(registrationForm) }}
+
+    </div>
 {% endblock %}
